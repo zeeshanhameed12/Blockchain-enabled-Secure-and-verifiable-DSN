@@ -14,7 +14,7 @@ var ganacheURL = "http://localhost:8545"
 
 func main() {
 
-	client, err := ethclient.DialContext(context.Background(), infuraURL)
+	client, err := ethclient.DialContext(context.Background(), ganacheURL)
 	if err != nil {
 		log.Fatalf("Error to creat ether client: %v", err)
 	}
