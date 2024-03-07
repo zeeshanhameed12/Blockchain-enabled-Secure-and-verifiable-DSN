@@ -55,22 +55,22 @@ func main() {
 		log.Fatalf("Error while getting the balance: %v", err)
 	}
 
-	// //nonce , err := client.PendingCodeAt(context.Background(),add)
-	// if err != nil {
-	// 	log.Fatalf("Error while getting pending nonce|: %v", err)
-	// }
-	// nonce, err := client.PendingNonceAt(context.Background(), add)
+	//nonce , err := client.PendingCodeAt(context.Background(),add)
+	if err != nil {
+		log.Fatalf("Error while getting pending nonce|: %v", err)
+	}
+	nonce, err := client.PendingNonceAt(context.Background(), add)
 
-	// amount := big.NewInt(100000000000000000)
-	// gPrice, err := client.SuggestGasPrice(context.Background())
-	// tX := types.NewTransaction(nonce, add2, amount, 21000, gPrice, nil)
-	// cID, err := client.NetworkID(context.Background())
+	amount := big.NewInt(100000000000000000)
+	gPrice, err := client.SuggestGasPrice(context.Background())
+	tX := types.NewTransaction(nonce, add2, amount, 21000, gPrice, nil)
+	cID, err := client.NetworkID(context.Background())
 
-	// t, err := types.SignTx(tX, types.NewEIP155Signer(cID), key.PrivateKey)
+	t, err := types.SignTx(tX, types.NewEIP155Signer(cID), key.PrivateKey)
 
-	// client.SendTransaction(context.Background(),t)
+	client.SendTransaction(context.Background(),t)
 
-	// fmt.Println("tx sent", t.Hash().Hex())
+	fmt.Println("tx sent", t.Hash().Hex())
 
 	fmt.Println("Balance in Account 1: ", float32(balance.Int64())/float32(1000000000000000000))
 	fmt.Println("Balance in Account 2: ", float32(balance2.Int64())/float32(1000000000000000000))

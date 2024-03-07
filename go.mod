@@ -3,6 +3,7 @@ module main.go
 go 1.20
 
 require (
+    Blockchain-enabled-Secure-and-verifiable-DSN/todo v1.2.3
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/StackExchange/wmi v1.2.1 // indirect
 	github.com/bits-and-blooms/bitset v1.10.0 // indirect

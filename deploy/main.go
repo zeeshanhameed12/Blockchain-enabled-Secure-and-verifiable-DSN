@@ -2,12 +2,17 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
+	"math/big"
 	"os"
 
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"main.go/todo"
+	//"Blockchain-enabled-Secure-and-verifiable-DSN/todo"
 )
 
 var infuraURL = "https://sepolia.infura.io/v3/a2b0e9a36e9a481b8a5356585850b404"
@@ -30,7 +35,7 @@ func main() {
 	}
 	add := crypto.PubkeyToAddress(key.PrivateKey.PublicKey)
 
-	nonce , err := client.PendingCodeAt(context.Background(),add)
+	nonce, err := client.PendingNonceAt(context.Background(), add)
 	if err != nil {
 		log.Fatalf("Error while getting pending nonce|: %v", err)
 	}
@@ -44,8 +49,21 @@ func main() {
 		log.Fatalf("Error while getting pending nonce|: %v", err)
 	}
 
-	
+	auth, err := bind.NewKeyedTransactorWithChainID(key.PrivateKey, cID)
+	if err != nil {
+		log.Fatalf("Error while getting pending nonce|: %v", err)
+	}
+	//fmt.Println(nonce)
 
+	auth.GasPrice = gPrice
+	auth.GasLimit = uint64(3000000)
+	auth.Nonce = big.NewInt(int64(nonce))
+	contadd, txt,_, err := todo.DeployTodo(auth,client)
+	if err != nil {
+		log.Fatalf("Error while getting pending nonce|: %v", err)
+	}
 
+	fmt.Println(contadd.Hex())
+	fmt.Println(txt.Hash().Hex())
 
 }
